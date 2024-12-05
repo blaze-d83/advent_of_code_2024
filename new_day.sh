@@ -47,15 +47,14 @@ cat <<EOT > ${DIR}/notes.md
 # Day ${DAY}: [Puzzle Title]
 
 ## Problem Description
-- **Part 1**: (Summarize the problem here.)
-- **Part 2**: (Summarize the problem here.)
 
 ---
 
 ## Brainstorming
-- Input structure:
-- Key observations:
-- Edge cases:
+### Input structure:
+### Key observations:
+### Edge cases:
+### Language specific considerations:
 
 ---
 
