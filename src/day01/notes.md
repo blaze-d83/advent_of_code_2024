@@ -2,10 +2,12 @@
 
 ## Problem Description
 
-In a nutshell: 
-        Find the sum of differences between the same index values of two sorted arrays
+### In a nutshell: 
+        Part 1: Find the sum of differences between the same index values of two sorted arrays
 
-In detail:
+### In detail:
+
+#### Part One
 
         3   4
         4   3
@@ -21,6 +23,8 @@ Within each pair, figure out how far apart the two numbers are; you'll need to a
 To find the total distance between the left list and the right list, add up the distances between all of the pairs you found. In the example above, this is 2 + 1 + 0 + 1 + 2 + 5, a total distance of 11!
 
 Your actual left and right lists contain many location IDs. What is the total distance between your lists?
+
+#### Part Two
 
 ---
 
@@ -54,21 +58,25 @@ Your actual left and right lists contain many location IDs. What is the total di
 ---
 
 ## Plan
-1. Parse the input.
-2. Implement solution for part 1:
-   - Steps:
-3. Solve part 2 (if revealed):
-   - Steps:
-4. Write tests for edge cases and example cases.
+
+### Part one
+1. Parse the input.txt file:
+    - Store first value on each line as a string in one array, and the next value as a string in another array.
+2. String Conversion
+    - Do string conversion of both arrays
+3. Sort
+    - Use the inbuilt sort function
+4. Initialize a common mutable value.
+5. Iterate both the arrays and store the sum of differences between each indexed values to the mutable value.
+6. Return the mutable value as the result.
 
 ---
 
 ## TODO
-- [ ] Parse input.
-- [ ] Write the `part1` function.
-- [ ] Test `part1` with example data.
-- [ ] Solve part 2.
-- [ ] Optimize if needed.
+- [x] Write a function that reads the input.txt file and returns two arrays of type string
+- [x] Write a function that takes in string type array and converts it to i32 type array
+- [x] Write the final function that iterates the two arrays and sums up the differences between values at each index and returns the sum
+- [x] Call these functions in `run()`
 
 ---
 

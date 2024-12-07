@@ -1,6 +1,7 @@
 mod day01;
 
-fn main() {
-    println!("Hello, world!");
-    day01::run();
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let result = day01::run()?;
+    println!("Total Distance: {} ", result);
+    Ok(())
 }
