@@ -1,3 +1,6 @@
+mod cli;
+mod registry;
+
 use std::{
     fs::File,
     io::{BufRead, BufReader},

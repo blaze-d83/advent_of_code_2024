@@ -1,44 +1,7 @@
+mod cli;
+mod build;
+
 use clap::{Arg, Command};
-use std::collections::HashMap;
-
-mod day01;
-
-trait DaySolution {
-    fn solve() -> String;
-}
-
-macro_rules! register_solution {
-    ($registry:expr, $day:expr, $part:expr, $module:path) => {
-        $registry.solutions.insert(
-            format!("{}_{}", $day, $part),
-            Box::new(|| <$module>::solve()),
-        );
-    };
-}
-
-struct DayRegistry {
-    solutions: HashMap<String, Box<dyn Fn() -> String>>,
-}
-
-impl DayRegistry {
-    fn new() -> Self {
-        let mut registry = DayRegistry {
-            solutions: HashMap::new(),
-        };
-
-        register_solution!(registry, "01", 1, day01::part1);
-
-        registry
-    }
-
-    fn solve(&self, day: &str, part: u8) -> Result<String, String> {
-        let key = format!("{}_{}", day, part);
-        self.solutions
-            .get(&key)
-            .map(|solver| solver())
-            .ok_or_else(|| format!("No solution found for Day {} Part {}", day, part))
-    }
-}
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let registry = DayRegistry::new();
