@@ -7,7 +7,7 @@ fn main() {
     if args.len() == 2 {
         match (args[0].as_str(), args[1].as_str()) {
             ("day01", "01") => {
-                if let Err(e) = solutions::day01::part1::solve() {
+                if let Err(e) = solutions::day01::part01() {
                     eprintln!("Error: {}", e);
                 }
             }
