@@ -19,6 +19,7 @@ pub fn solve() -> Result<i32, Box<dyn std::error::Error>> {
     right_sorted.sort();
 
     let total_distance = calculate_total_distance(&left_sorted, &right_sorted);
+    println!("Total distance: {}", total_distance);
     Ok(total_distance)
 }
 
