@@ -1,6 +1,3 @@
-mod cli;
-mod registry;
-
 use std::{
     fs::File,
     io::{BufRead, BufReader},
@@ -8,7 +5,7 @@ use std::{
 
 pub fn solve() -> Result<i32, Box<dyn std::error::Error>> {
     // Read the input file
-    let (left_strings, right_strings) = read_input_file("src/day01/input.txt")?;
+    let (left_strings, right_strings) = read_input_file("inputs/day01_part1.txt")?;
 
     // Convert strings to i32
     let left_values = convert_to_i32(&left_strings)?;

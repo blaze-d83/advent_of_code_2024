@@ -2,14 +2,10 @@
 
 ## High
 
-- [ ] Setup build script to dynamically create and update repository of solutions
-- [ ] Write cli to run any solutions
-- [ ] Run day01 part1 solution using the updated interface
+- [ ] Macro that will find the module + part and execute the solve function
+- [ ] CLI that will scan the flags and do pattern matching
 
 
 ## Low
 
 - [ ] day01 Part 2
-
-
-
