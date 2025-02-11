@@ -11,11 +11,11 @@ fn main() {
                     eprintln!("Error: {}", e);
                 }
             }
-            // ("day01", "02") => {
-            //     if let Err(e) = solutions::day01::part2::solve() {
-            //         eprintln!("Error: {}", e);
-            //     }
-            // }
+            ("day01", "02") => {
+                if let Err(e) = solutions::day01::part02() {
+                    eprintln!("Error: {}", e);
+                }
+            }
             _ => println!("Input a solution"),
         }
     }
