@@ -47,6 +47,7 @@ pub fn part02() {
     println!("Similarity score: {}", similarity_score);
 }
 
+// Reads the input file and returns two vectors of type String
 fn read_input_file(path: &str) -> Result<(Vec<String>, Vec<String>), std::io::Error> {
     let file = File::open(path)?;
     let reader = BufReader::new(file);
@@ -66,6 +67,7 @@ fn read_input_file(path: &str) -> Result<(Vec<String>, Vec<String>), std::io::Er
     Ok((left_strings, right_strings))
 }
 
+// Cleans the two vectors of input file by sorting and converting it to i32
 fn cleaned_input(left: &[String], right: &[String]) -> Result<(Vec<i32>, Vec<i32>), ParseIntError> {
     // Convert strings to i32
     let left_int = convert_to_i32(&left)?;
@@ -81,10 +83,13 @@ fn cleaned_input(left: &[String], right: &[String]) -> Result<(Vec<i32>, Vec<i32
     Ok((left_sorted, right_sorted))
 }
 
+// Converts the values in the array to i32
 fn convert_to_i32(values: &[String]) -> Result<Vec<i32>, ParseIntError> {
     values.iter().map(|s| s.parse::<i32>()).collect()
 }
 
+// Calculates the total distance by summing up the difference of values on the same index of both
+// arrays
 fn calculate_total_distance(left: &[i32], right: &[i32]) -> i32 {
     left.iter()
         .zip(right.iter())
@@ -92,6 +97,11 @@ fn calculate_total_distance(left: &[i32], right: &[i32]) -> i32 {
         .sum()
 }
 
+// Creates a similarity score by:
+// - Mapping the value counts
+// - Counting the number repititions
+// - Multiplyting the number of repitions to the value in left array
+// - Summing it all up
 fn calculate_similarity_score(left: &[i32], right: &[i32]) -> i32 {
     let mut count_map = HashMap::new();
     for &num in right {
