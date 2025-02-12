@@ -5,21 +5,46 @@ use std::{
     num::ParseIntError,
 };
 
-pub fn part01() -> Result<i32, Box<dyn std::error::Error>> {
-    let (left_str, right_str) = read_input_file("inputs/day01_part1.txt")?;
-    let (left, right) = cleaned_input(&left_str, &right_str)?;
+pub fn part01() {
+    let (left_str, right_str) = match read_input_file("inputs/day01.txt") {
+        Ok(d) => d,
+        Err(e) => {
+            eprintln!("Error reading file: {}", e);
+            return;
+        }
+    };
+
+    let (left, right) = match cleaned_input(&left_str, &right_str) {
+        Ok(d) => d,
+        Err(e) => {
+            eprintln!("Error cleaning the data: {}", e);
+            return;
+        }
+    };
 
     let total_distance = calculate_total_distance(&left, &right);
     println!("Total distance: {}", total_distance);
-    Ok(total_distance)
 }
 
-pub fn part02() -> Result<i32, Box<dyn std::error::Error>> {
-    let (left_str, right_str) = read_input_file("inputs/day01_part1.txt")?;
-    let (left, right) = cleaned_input(&left_str, &right_str)?;
+pub fn part02() {
+    let (left_str, right_str) = match read_input_file("inputs/day01.txt") {
+        Ok(d) => d,
+        Err(e) => {
+            eprintln!("Error reading input file: {}", e);
+            return;
+        }
+    };
+
+    let (left, right) = match cleaned_input(&left_str, &right_str) {
+        Ok(d) => d,
+        Err(e) => {
+            eprintln!("Error cleaning the data: {}", e);
+            return;
+        }
+    };
+
     let similarity_score = calculate_similarity_score(&left, &right);
     println!("Similarity score: {}", similarity_score);
-    Ok(similarity_score)
 }
 
 fn read_input_file(path: &str) -> Result<(Vec<String>, Vec<String>), std::io::Error> {
