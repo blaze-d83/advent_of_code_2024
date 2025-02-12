@@ -31,7 +31,7 @@ fn is_safe(row: &Vec<i32>) -> bool {
 
     for i in 0..row.len() - 1 {
         let diff = (row[i] - row[i + 1]).abs();
-        if diff > 3 {
+        if diff > 3 || diff < 1 {
             return false;
         }
         if row[i] > row[i + 1] {
