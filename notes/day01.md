@@ -110,10 +110,6 @@ Once again consider your left and right lists. What is their similarity score?
 - [ ] Write a function to store all unque values from List A in an array
 - [ ] Wite a function to conduct the similarity score
 
----
-
-## Notes
-- (Additional thoughts about the problem.)
 
 ---
 
