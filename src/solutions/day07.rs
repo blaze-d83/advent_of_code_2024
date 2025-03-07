@@ -1,6 +1,21 @@
-use std::collections::HashMap;
 use std::fs::File;
 use std::io::{self, BufRead, BufReader};
+
+pub fn part1() {
+    let file_path = "inputs/day07.txt";
+    match read_input_file(file_path) {
+        Ok(data) => {
+            let mut total_sum = 0;
+            for (target, nums) in data {
+                if can_make_target(&nums, target) {
+                    total_sum += target;
+                }
+            }
+            println!("Calibration result: {}", total_sum);
+        }
+        Err(e) => eprintln!("Error: {}", e),
+    }
+}
 
 #[derive(Debug, Clone, Copy)]
 enum Operators {
@@ -8,77 +23,62 @@ enum Operators {
     Multiply,
 }
 
-impl Operators {}
-
-/// Reads the input file "input.txt" and returns a HashMap that maps
-/// each key (u32) to a vector of u32 values.
-///
-/// Each line in the file should have the format:
-///     key: value1 value2 ...
-pub fn read_input_file() -> Result<HashMap<u32, Vec<u32>>, io::Error> {
-    let file = File::open("input.txt")?;
-    let reader = BufReader::new(file);
-    parse_input(reader)
+fn apply_op(a: i64, b: i64, op: Operators) -> Option<i64> {
+    match op {
+        Operators::Add => Some(a + b),
+        Operators::Multiply => Some(a * b),
+    }
 }
 
-/// Parses input from any type that implements BufRead.
-/// This function is generic so it can be reused in tests or for other input sources.
-fn parse_input<R: BufRead>(reader: R) -> Result<HashMap<u32, Vec<u32>>, io::Error> {
-    let mut map = HashMap::new();
+fn can_make_target(nums: &[i64], target: i64) -> bool {
+    fn recurse(index: usize, current: i64, nums: &[i64], target: i64) -> bool {
+        if index == nums.len() {
+            return current == target;
+        }
+        let next = nums[index];
+        for op in [Operators::Add, Operators::Multiply].iter() {
+            if let Some(result) = apply_op(current, next, *op) {
+                if recurse(index + 1, result, nums, target) {
+                    return true;
+                }
+            }
+        }
+        false
+    }
+    if nums.is_empty() {
+        return false;
+    }
+    recurse(1, nums[0], nums, target)
+}
 
-    for (line_number, line_result) in reader.lines().enumerate() {
-        let line = line_result?;
-        let line = line.trim();
-        if line.is_empty() {
+pub fn read_input_file(path: &str) -> Result<Vec<(i64, Vec<i64>)>, io::Error> {
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+    let mut data = Vec::new();
+
+    for line in reader.lines() {
+        let line = line?;
+        if line.trim().is_empty() {
+            continue;
+        }
+        let parts: Vec<&str> = line.split(':').collect();
+        if parts.len() != 2 {
+            eprintln!("Skipping malformed line: {}", line);
             continue;
         }
 
-        // Use splitn to ensure we only split into two parts: key and values.
-        let mut parts = line.splitn(2, ':');
-        let key_str = parts.next().ok_or_else(|| {
-            io::Error::new(
-                io::ErrorKind::InvalidData,
-                format!("Line {}: Missing key in '{}'", line_number + 1, line),
-            )
-        })?;
-        let values_str = parts.next().ok_or_else(|| {
-            io::Error::new(
-                io::ErrorKind::InvalidData,
-                format!("Line {}: Missing values in '{}'", line_number + 1, line),
-            )
-        })?;
+        let target = parts[0]
+            .trim()
+            .parse::<i64>()
+            .expect("failed to parse target number");
 
-        let key = key_str.trim().parse::<u32>().map_err(|e| {
-            io::Error::new(
-                io::ErrorKind::InvalidData,
-                format!(
-                    "Line {}: Error parsing key '{}': {}",
-                    line_number + 1,
-                    key_str.trim(),
-                    e
-                ),
-            )
-        })?;
-
-        let values = values_str
+        let values: Vec<i64> = parts[1]
             .trim()
             .split_whitespace()
-            .map(|v| {
-                v.parse::<u32>().map_err(|e| {
-                    io::Error::new(
-                        io::ErrorKind::InvalidData,
-                        format!(
-                            "Line {}: Error parsing value '{}': {}",
-                            line_number + 1,
-                            v,
-                            e
-                        ),
-                    )
-                })
-            })
-            .collect::<Result<Vec<_>, _>>()?;
+            .map(|s| s.parse::<i64>().expect("failed to parse the value"))
+            .collect();
 
-        map.insert(key, values);
+        data.push((target, values));
     }
-    Ok(map)
+    Ok(data)
 }

@@ -18,6 +18,7 @@ fn main() {
             ("day05", "02") => solutions::day05::part02(),
             ("day06", "01") => solutions::day06::part01(),
             ("day06", "02") => solutions::day06::part02(),
+            ("day07", "01") => solutions::day07::part1(),
 
             _ => println!("Input a solution"),
         }
