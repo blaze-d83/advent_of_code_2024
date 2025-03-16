@@ -1,6 +1,15 @@
 use std::fs::File;
 use std::io::{self, BufRead, BufReader};
 
+/// Main Entry point of the solution to part1 of day07.
+///
+/// Functionality:
+/// - File Reading: Calls `read_input_file` to parse the file located at "inputs/day07.txt"
+/// - Data Processing: Iterates over each parsed tuple `(target, numbers)` from the file.
+/// - Evaluation - For each tuple checks if the target can be reached by sequentially  applying
+/// addition or multiplication on the list of numbers using `can_make_target` function
+/// - Accumulation: If the target is reachable, it is added to the running sum
+/// - Output: The final calibration result is printed. 
 pub fn part1() {
     let file_path = "inputs/day07.txt";
     match read_input_file(file_path) {
